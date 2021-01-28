@@ -1,0 +1,137 @@
+[TOC]
+
+# 作业图形化和文字描述
+
+活动图
+
+![clip_image001](pic/clip_image001.png)
+
+用例图：
+
+![clip_image002](pic/clip_image002.png)
+
+类图
+
+![clip_image004](pic/clip_image004.png)
+
+（建议查看本文档路径下的pic目录中的clip_image004.png原图）
+
+顺序图
+
+![clip_image006](pic/clip_image006.png)
+
+状态图
+
+![clip_image008](pic/clip_image008.png)
+
+文字说明：
+
+本项目分为登录界面、前台和后台三部分。登陆界面输入用户名密码后立即跳转到实验室设备列表的前台页面，前台页面展示了所有设备信息，在前台页面可以添加设备、进入后台。进入后台后也可以添加设备。
+
+# 系统部署说明
+
+首先需要安装anaconda环境。
+
+在ManageSystemFinal目录下运行以下命令
+
+```
+conda create -n mysite python=3.7
+conda activate mysite
+pip install django==2.1.5
+python manage.py runserver
+```
+
+打开浏览器进入http://127.0.0.1:8000
+
+预置管理员账号：admin，密码：admin
+
+(只能使用上述django版本，其余版本可能报错)
+
+# 作业功能要点的操作说明
+
+## 登录
+
+进入http://127.0.0.1:8000或http://127.0.0.1:8000/login/ 登录
+
+预置管理员账号：admin，密码：admin
+
+![image-20200321215113357](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200321215113357.png)
+
+## 查看设备列表
+
+登录后会自动跳转
+
+还可以进入http://127.0.0.1:8000/assets/index/ 查看设备列表
+
+## 增加设备
+
+- 如下图红框所示，点击添加设备按钮即可添加
+
+  ![image-20200405112751277](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405112751277.png)
+
+- 可以在后台（进入http://127.0.0.1:8000/admin或点击右上角的“后台”按钮）中添加设备(下图红框处)
+
+  ![image-20200321215426486](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200321215426486.png)
+
+# 上周展示后修改和优化说明
+
+## 修改“添加设备”按钮位置
+
+将“添加设备”按钮独立出来，而之前是只在与设备一行的位置。
+
+![image-20200405121404951](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405121404951.png)
+
+## 添加下拉选择框
+
+![image-20200405115008875](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405115008875.png)
+
+## 优化设备id的设置
+
+日期与随机数拼接在一起构成设备id，日期为设备ID提供了语义信息，6位十六进制随机数保证了不重复。
+
+![image-20200405115220125](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405115220125.png)
+
+## 其他优化
+
+### 添加打印功能
+
+考虑到实验室报备审批需求，添加了打印功能便于提交纸质报表。
+
+(点击下图红圈中的按钮)
+
+![image-20200405121541337](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405121541337.png)
+
+![image-20200405121450575](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405121450575.png)
+
+### 添加导出csv功能
+
+考虑到财务报表处理问题添加导出csv功能。
+
+![image-20200405120713727](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405120713727.png)
+
+导出结果如下：
+
+![image-20200405120751059](C:\Users\gz\AppData\Roaming\Typora\typora-user-images\image-20200405120751059.png)
+
+# 其他作业要求的说明
+
+## 加密
+
+密码采用Django框架的默认加密机制：pbkdf2_sha256
+
+参考：https://docs.djangoproject.com/en/3.0/topics/auth/passwords/
+
+# 系统环境
+
+测试过的系统环境：Windows 10 Enterprise LTSC
+
+浏览器：Firefox，Cent browser
+
+Anaconda版本：miniconda 4.8.2
+
+python版本：3.7
+
+Django版本：2.1.5
+
+（都是跨平台的技术，应该问题不大）
+

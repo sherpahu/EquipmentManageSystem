@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}实验室设备列表{% endblock %}
+
+{% block css %}
+
+<!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+
+{% endblock %}
+
+{% block js %}
+
+<!-- XDSoft DateTimePicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+  <script>
+$(function () {
+      $("#id_pub_date").datetimepicker( {
+         format:'Y-m-d H:i',
+      });
+    });
+  </script>
+{% endblock %}
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        实验室设备列表
+
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">实验室设备列表</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+    <div class="row">
+    <div class="col-xs-12">
+
+      <div class="box">
+        <!-- <div class="box-header"> -->
+          <!-- <h3 class="box-title">实验室设备列表</h3> -->
+            <!-- <button><a href="{% url 'assets:add' %}" title="添加"><i class="glyphicon glyphicon-plus"></i>添加</a></button> -->
+        <!-- </div> -->
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="assets_table" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>序号</th>
+              <th>设备ID号</th>
+              <th>设备名</th>
+              <th>购置人</th>
+              <th>购置时间</th>
+              <th>实验室名</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                {% for asset in assets %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ asset.sn }}</td>
+                  <td>{{ asset.name }}</td>
+                  <td>{{ asset.manufacturer }}</td>
+                  <td>{{ asset.purchase_day|date:"Y/m/d " }}</td>
+                  <td>{{ asset.idc|default:"-" }}</td>
+                </tr>
+                {% empty %}
+                  <tr>没有数据！</tr>
+                {% endfor %}
+
+            </tbody>
+            <tfoot>
+            <tr>
+              <th>序号</th>
+              <th>设备ID号</th>
+              <th>设备名</th>
+              <th>购置人</th>
+              <th>购置时间</th>
+              <th>实验室名</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    <!-- DataTables -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+
+    <!-- SlimScroll -->
+    <script src="{% static 'plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'plugins/fastclick/fastclick.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/app.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+
+    <!-- DataTable buttons -->
+    <script src="{% static  'plugins/datatables/button/dataTables.buttons.min.js'%}"></script>
+    <script src="{% static  'plugins/datatables/button/buttons.bootstrap.min.js'%}"></script>
+    <!-- buttons 打印功能 -->
+    <script src="{% static  'plugins/datatables/button/buttons.print.min.js'%}"></script>
+    <!-- buttons 导出功能 -->
+    <script src="{% static  'plugins/datatables/button/buttons.html5.min.js'%}"></script>
+    <script src="{% static  'plugins/datatables/button/jszip.min.js'%}"></script>
+    <!-- buttons 生成PDF功能 -->
+    <script src="{% static  'plugins/datatables/button/pdfmake.min.js'%}"></script>
+    <script src="{% static  'plugins/datatables/button/vfs_fonts.js'%}"></script>
+
+    <!-- page script -->
+
+    <script>
+    function tz(){
+        window.location.href="add";
+    }
+    </script>
+
+    <script>
+      $(function () {
+        $('#assets_table').DataTable({
+          "paging": true,       <!-- 允许分页 -->
+          "lengthChange": true, <!-- 允许改变每页显示的行数 -->
+          "searching": true,    <!-- 允许内容搜索 -->
+          "ordering": true,     <!-- 允许排序 -->
+          "info": true,         <!-- 显示信息 -->
+          "autoWidth": false,    <!-- 固定宽度 -->
+          language:{
+              'sSearch':"搜索",
+              "info":           "显示 _START_ 到 _END_ 页共 _TOTAL_ 条",
+              "infoEmpty":      "显示 0 到 0 页共 0 条",
+              "lengthMenu":     "显示 _MENU_ 条",
+              "zeroRecords":    "没有匹配项",
+          "paginate": {
+              "first":      "First",
+              "last":       "Last",
+              "next":       "下页",
+              "previous":   "上页"
+          },
+          },
+          dom: '<"pull-left"B>ft<"pull-left"i>p',
+        buttons: [
+            {
+                text: '<i class="glyphicon glyphicon-print" title="打印"></i>',
+                extend: 'print'
+            }, {
+                text: '<i class="glyphicon glyphicon-list-alt" title="导出csv"></i>',
+                extend: 'csv'
+            }, {
+            text: '添加设备',
+            action: function ( e, dt, node, config ) {
+                window.location.href='add'
+            }
+        }
+        ],
+        });
+      });
+    </script>
+{% endblock %}
