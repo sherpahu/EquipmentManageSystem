@@ -1,31 +1,3 @@
-[TOC]
-
-# 作业图形化和文字描述
-
-活动图
-
-![clip_image001](./pic/clip_image001.png)
-
-用例图：
-
-![clip_image002](./pic/clip_image002.png)
-
-类图
-
-![clip_image004](./pic/clip_image004.png)
-
-（建议查看本文档路径下的pic目录中的clip_image004.png原图）
-
-顺序图
-
-![clip_image006](./pic/clip_image006.png)
-
-状态图
-
-![clip_image008](./pic/clip_image008.png)
-
-文字说明：
-
 本项目分为登录界面、前台和后台三部分。登陆界面输入用户名密码后立即跳转到实验室设备列表的前台页面，前台页面展示了所有设备信息，在前台页面可以添加设备、进入后台。进入后台后也可以添加设备。
 
 # 系统部署说明
